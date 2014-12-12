@@ -9,6 +9,7 @@ if (!(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)){
     header("Location: login.php");
     exit();
 }
+//double check that the users uploads folder exists, if it doesn't create it
 $filePath = "uploads/" . $_SESSION['username'] . "/uploads/";
 if(!(file_exists($filePath))){
     mkdir($filePath, 0755, true);
@@ -187,7 +188,7 @@ if(!(file_exists($filePath))){
                 if ($handle = opendir($path)) {
 
                     while (false !== ($entry = readdir($handle))) {
-
+                        //make sure its a file and not a dir
                         if ($entry != "." && $entry != "..") {
                             array_push($filenames, $entry);
                         }
